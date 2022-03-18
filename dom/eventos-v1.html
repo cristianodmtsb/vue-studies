@@ -1,0 +1,34 @@
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+<div id="app">
+    <div class="container">
+        <div class="row">
+        <div class="col-md-12">
+            <h1>Contador: {{ count }}</h1>
+            <p><button v-on:click="soma">Clique</button></p>
+            <p v-on:mousemove="atualizaXY">Aqui: {{ x }} e {{ y }}</p>
+        </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var app = new Vue({
+        el: '#app',
+        data: {
+            count: 0,
+            x: 0,
+            y: 0
+
+        },
+        methods: {
+            soma() {
+                this.count++
+            },
+            atualizaXY(event){
+                this.x = event.clientX
+                this.y = event.clientY
+            }
+        }
+    })
+</script>

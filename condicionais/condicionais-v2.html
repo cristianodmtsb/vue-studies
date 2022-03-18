@@ -1,0 +1,43 @@
+<meta charset="UTF-8">
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+<div id="app">
+    <ul>
+        <li v-for="color in colors">
+            <span>{{ color }}</span>
+        </li>
+    </ul>
+    <ul>
+        <li v-for="(person, i) in people">
+            <span>{{ i + 1}}) {{ person.name }}: {{ person.age }}</span>
+        </li>
+    </ul>
+
+    <template v-for="(person, i) in people">
+        <p>{{ i + 1}}) {{ person.name }}: {{ person.age }}</p>
+    </template>
+
+
+    <template v-for="(person) in people">
+        <p>{{ person }}</p>
+    </template>
+
+    <hr>
+    <span v-for="n in 10">{{ n }}</span>
+</div>
+
+<script>
+    var app = new Vue({
+        el: '#app',
+        data: {
+            colors: ['red', 'green', 'blue'],
+            people: [
+                { name: 'John', age: 20 },
+                { name: 'Joel', age: 20 },
+                { name: 'Jamm', age: 20 },
+                { name: 'Tati', age: 20 },
+                { name: 'Doe', age: 30 }
+            ],
+        }
+    })
+</script>

@@ -1,0 +1,28 @@
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+<div id="app">
+    <div class="container">
+        <div class="row">
+        <div class="col-md-12">
+            <h1>{{ message }}</h1>
+            <p >{{ changeMessage() }}</p>
+            <a v-bind:href="link">Google</a>
+        </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var app = new Vue({
+        el: '#app',
+        data: {
+            message: 'Hello Vue!',
+            link: 'https://www.google.com',
+        },
+        methods: {
+            changeMessage: function() {
+                return this.message =  Math.random() > 0.5 ? 'Hello Vue 2!' : 'Hello World!';
+            }
+        }
+    })
+</script>

@@ -1,0 +1,31 @@
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+<div id="app">
+    <div class="container">
+        <div class="row">
+        <div class="col-md-12">
+            <h1>{{ message }}</h1>
+            <p>
+                V-bind + V-on
+                <input type="text" 
+                v-bind:value="message" 
+                v-on:input="message = $event.target.value" >
+            </p>
+            <p>
+                V-model
+                <input type="text" 
+                v-model="message" >
+            </p>
+        </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var app = new Vue({
+        el: '#app',
+        data: {
+            message: 'Hello Vue!'
+        }
+    })
+</script>

@@ -1,0 +1,32 @@
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+<div id="app">
+    <div class="container">
+        <div class="row">
+        <div class="col-md-12">
+            <h1 v-once>{{ message }}</h1>
+            <p >{{ changeMessage() }}</p>
+            <a v-bind:href="link">Google</a>
+
+            <p v-html="linkHtml"></p>
+        </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var app = new Vue({
+        el: '#app',
+        data: {
+            message: 'Hello Vue!',
+            link: 'https://www.google.com',
+            linkHtml: '<a href="https://www.google.com">Google</a>',
+        },
+        methods: {
+            changeMessage: function() {
+                this.message = 'Aqui ó!'
+                return this.message
+            }
+        }
+    })
+</script>
