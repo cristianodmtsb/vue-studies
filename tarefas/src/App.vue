@@ -1,38 +1,72 @@
 <template>
 	<div id="app">
 		<h1>Tarefas</h1>
-		<TodoList :tarefas="tarefas" />
+		<TodoInput @todoAdded="addTodo" />
+		<StatusBarr :progress="progress" />
+		<TodoList 
+			:tarefas="tarefas" 
+			@todoDeleted="deleteTodo" 
+			@todoStatusChange="toggleTodoStatus" 
+		/>
 	</div>
 </template>
 
 <script>
 import TodoList from './components/TodoList'
+import TodoInput from './components/TodoInput'
+import StatusBarr from './components/StatusBar'
 
 export default {
 	components: {
-		TodoList
+		TodoList,
+		TodoInput,
+		StatusBarr
 	},
 	data() {
 		return {
-			tarefas: [
-				{
-					id: 1,
-					nome: 'Estudar Vue',
-					status: true,
-				},
-				{
-					id: 2,
-					nome: 'Estudar Vuex',
-					status: false,
-				},
-				{
-					id: 3,
-					nome: 'Estudar Vue Router',
-					status: false,
-				},
-			],
+			tarefas: [],
 		};
 	},
+	computed: {
+		progress() {
+			const total = this.tarefas.length
+			const done = this.tarefas.filter(t => !t.status).length
+			return Math.round(done / total * 100) || 0
+		}
+
+	},
+	watch: {
+		tarefas: {
+			deep: true,
+			handler() {
+				localStorage.setItem('todoList', JSON.stringify(this.tarefas))
+			}
+		}
+	},
+	methods: {
+		addTodo(todo){
+			const sameName = t => t.nome === todo.name
+			const reallyNew = this.tarefas.filter(sameName).length == 0
+			if(reallyNew){
+				this.tarefas.push({
+					nome: todo.name,
+					status: todo.status || true
+				})
+			}
+		},
+		deleteTodo(todo){
+			const i = this.tarefas.indexOf(todo)
+			this.tarefas.splice(i, 1)
+		},
+		toggleTodoStatus(i){
+			this.tarefas[i].status = !this.tarefas[i].status
+		}
+	},
+	created() {
+		const json = localStorage.getItem("todoList")
+		const array = JSON.parse(json)
+		this.tarefas = Array.isArray(array) ? array : []
+	}
 }
 </script>
 
